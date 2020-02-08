@@ -2,7 +2,8 @@ import React from 'react';
 import { CssBaseline, Container, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Calculator from './calculator';
-import InfoCard from './infoCard';
+import InfoCard from './info-card';
+import getData from '../services/data-service';
 
 const useStyles = makeStyles({
   container: {
@@ -27,6 +28,8 @@ const useStyles = makeStyles({
 
 const App = () => {
   const clases = useStyles();
+
+  getData().then(data => console.log(data));
 
   return (
     <>
