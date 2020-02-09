@@ -3,7 +3,7 @@ const mainReducer = (state, action) => {
     case 'loaded':
       return {
         ...state,
-        isLoaded: false,
+        isLoading: false,
         data: action.data,
       };
     default:

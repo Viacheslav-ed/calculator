@@ -17,14 +17,13 @@ const useStyles = makeStyles({
     justifyContent: 'center',
   },
   mainBox: {
-    width: '100%',
-    maxWidth: '1200px',
+    minWidth: '900px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
   mainBoxInactive: {
-    maxWidth: '1200px',
+    minWidth: '900px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -45,15 +44,14 @@ const App = () => {
 
   useEffect(() => {
     getData().then(data => dispatch({ type: 'loaded', data }));
-    console.log('state', state);
   }, []);
 
   return (
     <>
       <CssBaseline />
       <Box className={clases.wrapper}>
-        {state.isLoaded ? <Spiner text="LOADING" /> : null}
-        <Box className={state.isLoaded ? clases.mainBoxInactive : clases.mainBox}>
+        {state.isLoading ? <Spiner text="LOADING" /> : null}
+        <Box className={state.isLoading ? clases.mainBoxInactive : clases.mainBox}>
           <Box className={clases.calculator}>
             <Calculator />
           </Box>
