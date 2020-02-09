@@ -56,7 +56,7 @@ const App = () => {
             <Calculator />
           </Box>
           <Box className={clases.infoCard}>
-            <InfoCard />
+            <InfoCard data={state.data} isLoan={state.isLoan} result={state.resultCalculation} />
           </Box>
         </Box>
       </Box>

@@ -1,10 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Paper, List, makeStyles, ListItem, ListItemText, Divider } from '@material-ui/core';
-
-// const primaryOne = 'primary one';
-// const primaryTwo = 'primary two';
-// const secondaryOne = 'secondary one';
-// const primaryOne = 'primary one';
 
 const useStyle = makeStyles({
   value: {
@@ -12,17 +8,11 @@ const useStyle = makeStyles({
   },
 });
 
-const InfoCard = () => {
-  const msrp = '$60363';
-  const vehicleName = 'Toyota Corrola';
-  const vehicleInfo = '2018 1.6l black';
-  const peymentType = 'Loan';
-  const paymentValue = '$658/mo';
-  const taxes = '25%, 30%, 45%';
-  const dealerName = "Magnussen's Toyota of Palo Alto (Palo Alto, CA)";
-  const dealerPhone = '(855)977-2913';
-  const dealerRating = '4,5';
-
+const InfoCard = ({
+  data: { msrp, vehicle, dealerName, dealerPhone, dealerRating, taxes },
+  isLoan,
+  result,
+}) => {
   const styles = useStyle();
 
   return (
@@ -34,12 +24,12 @@ const InfoCard = () => {
             <ListItemText className={styles.value} primary={msrp} />
           </ListItem>
           <ListItem>
-            <ListItemText primary={vehicleName} secondary={vehicleInfo} />
+            <ListItemText primary={vehicle.name} secondary={vehicle.info} />
           </ListItem>
           <Divider />
           <ListItem>
-            <ListItemText primary={`Est. ${peymentType} Payment`} />
-            <ListItemText className={styles.value} primary={paymentValue} />
+            <ListItemText primary={`Est. ${isLoan ? 'Loan' : 'Lease'} Payment`} />
+            <ListItemText className={styles.value} primary={isLoan ? result.loan : result.lease} />
           </ListItem>
           <ListItem>
             <ListItemText primary="Taxes" />
@@ -62,6 +52,19 @@ const InfoCard = () => {
       </Paper>
     </>
   );
+};
+
+InfoCard.propTypes = {
+  data: PropTypes.shape({
+    msrp: PropTypes.string,
+    vehicle: PropTypes.objectOf(PropTypes.string),
+    dealerName: PropTypes.string,
+    dealerPhone: PropTypes.string,
+    dealerRating: PropTypes.string,
+    taxes: PropTypes.string,
+  }).isRequired,
+  isLoan: PropTypes.bool.isRequired,
+  result: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default InfoCard;
