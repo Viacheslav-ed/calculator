@@ -1,21 +1,34 @@
-import React from 'react';
-import { CssBaseline, Container, Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useReducer, useEffect } from 'react';
+import { CssBaseline, Box, makeStyles } from '@material-ui/core';
+// import { makeStyles } from '@material-ui/core/styles';
 import Calculator from './calculator';
 import InfoCard from './info-card';
 import getData from '../services/data-service';
+import mainReducer from '../reducers/main-reducer';
+import initialState from '../reducers/initState';
+import Spiner from './spiner';
 
 const useStyles = makeStyles({
-  container: {
-    // height: '100vh',
-    // background: 'red',
-    display: 'flex',
-  },
-  flexBox: {
-    display: 'flex',
+  wrapper: {
+    height: '100vh',
     width: '100%',
-    // background: 'aqua',
-    margin: 20,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  mainBox: {
+    width: '100%',
+    maxWidth: '1200px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mainBoxInactive: {
+    maxWidth: '1200px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: '0.3',
   },
   calculator: {
     flex: 2,
@@ -28,14 +41,19 @@ const useStyles = makeStyles({
 
 const App = () => {
   const clases = useStyles();
+  const [state, dispatch] = useReducer(mainReducer, initialState);
 
-  getData().then(data => console.log(data));
+  useEffect(() => {
+    getData().then(data => dispatch({ type: 'loaded', data }));
+    console.log('state', state);
+  }, []);
 
   return (
     <>
       <CssBaseline />
-      <Container className={clases.container}>
-        <Box className={clases.flexBox}>
+      <Box className={clases.wrapper}>
+        {state.isLoaded ? <Spiner text="LOADING" /> : null}
+        <Box className={state.isLoaded ? clases.mainBoxInactive : clases.mainBox}>
           <Box className={clases.calculator}>
             <Calculator />
           </Box>
@@ -43,7 +61,7 @@ const App = () => {
             <InfoCard />
           </Box>
         </Box>
-      </Container>
+      </Box>
     </>
   );
 };

@@ -21,6 +21,7 @@ const Calculator = () => {
         <Tab label="Loan" />
         <Tab label="Lease" />
       </Tabs>
+      <span>ho-ho</span>
     </Paper>
   );
 };

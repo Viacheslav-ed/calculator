@@ -3,7 +3,7 @@ import data from './data';
 const promise = new Promise(resolve => {
   setTimeout(() => {
     resolve(data);
-  }, 500);
+  }, 11500);
 });
 
 const getData = async () => {
