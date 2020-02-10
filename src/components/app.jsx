@@ -42,8 +42,11 @@ const App = () => {
   const clases = useStyles();
   const [state, dispatch] = useReducer(mainReducer, initialState);
 
+  const changeTypeCalc = () => dispatch({ type: 'CHANGE_TYPE_CULC' });
+  // const val = 'value';
+
   useEffect(() => {
-    getData().then(data => dispatch({ type: 'loaded', data }));
+    getData().then(data => dispatch({ type: 'LOADED', data }));
   }, []);
 
   return (
@@ -53,7 +56,7 @@ const App = () => {
         {state.isLoading ? <Spiner text="LOADING" /> : null}
         <Box className={state.isLoading ? clases.mainBoxInactive : clases.mainBox}>
           <Box className={clases.calculator}>
-            <Calculator />
+            <Calculator isLoan={state.isLoan} changeTypeCalc={changeTypeCalc} />
           </Box>
           <Box className={clases.infoCard}>
             <InfoCard data={state.data} isLoan={state.isLoan} result={state.resultCalculation} />

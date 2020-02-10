@@ -1,5 +1,5 @@
 const getTaxes = postal => {
-  return postal;
+  return postal.split('').map(num => num * 11);
 };
 
 export default getTaxes;
