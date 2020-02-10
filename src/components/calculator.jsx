@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Paper, Tabs, Tab } from '@material-ui/core';
 import Loan from './loan';
+import Lease from './lease';
 
 const Calculator = ({ isLoan, changeTypeCalc }) => {
   const [value, setValue] = React.useState(0);
@@ -13,7 +14,7 @@ const Calculator = ({ isLoan, changeTypeCalc }) => {
   };
 
   return (
-    <Paper square>
+    <Paper>
       <Tabs
         value={value}
         indicatorColor="primary"
@@ -24,7 +25,7 @@ const Calculator = ({ isLoan, changeTypeCalc }) => {
         <Tab label="Loan" />
         <Tab label="Lease" />
       </Tabs>
-      {isLoan ? <Loan /> : null}
+      {isLoan ? <Loan /> : <Lease />}
     </Paper>
   );
 };

@@ -11,7 +11,7 @@ const initialState = {
     dealerName: 'n/a',
     dealerPhone: 'n/a',
     dealerRating: 'n/a',
-    taxes: 'n/a',
+    taxes: [],
   },
   resultCalculation: {
     loan: 'n/a',

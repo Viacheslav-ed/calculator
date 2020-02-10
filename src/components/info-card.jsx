@@ -61,7 +61,7 @@ InfoCard.propTypes = {
     dealerName: PropTypes.string,
     dealerPhone: PropTypes.string,
     dealerRating: PropTypes.string,
-    taxes: PropTypes.string,
+    taxes: PropTypes.arrayOf(PropTypes.number),
   }).isRequired,
   isLoan: PropTypes.bool.isRequired,
   result: PropTypes.objectOf(PropTypes.string).isRequired,
