@@ -1,53 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Paper, List, makeStyles, ListItem, ListItemText, Divider } from '@material-ui/core';
+import { Paper, List, Divider } from '@material-ui/core';
+import { TextItemList } from './item-lists';
 
-const useStyle = makeStyles({
-  value: {
-    textAlign: 'right',
-  },
-});
-
-const InfoCard = ({
-  data: { msrp, vehicle, dealerName, dealerPhone, dealerRating, taxes },
-  isLoan,
-  result,
-}) => {
-  const styles = useStyle();
-
+const InfoCard = ({ data, isLoan, result }) => {
+  const { msrp, vehicle, dealerName, dealerPhone, dealerRating, taxes } = data;
   return (
     <>
       <Paper>
         <List>
-          <ListItem>
-            <ListItemText primary="MSRP" />
-            <ListItemText className={styles.value} primary={msrp} />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary={vehicle.name} secondary={vehicle.info} />
-          </ListItem>
+          <TextItemList text={{ primary: 'MSRP' }} value={msrp} />
+          <TextItemList text={{ primary: vehicle.name, secondary: vehicle.info }} />
           <Divider />
-          <ListItem>
-            <ListItemText primary={`Est. ${isLoan ? 'Loan' : 'Lease'} Payment`} />
-            <ListItemText className={styles.value} primary={isLoan ? result.loan : result.lease} />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="Taxes" />
-            <ListItemText className={styles.value} primary={taxes} />
-          </ListItem>
+          <TextItemList
+            text={{ primary: `Est. ${isLoan ? 'Loan' : 'Lease'} Payment` }}
+            value={isLoan ? result.loan : result.lease}
+          />
+          <TextItemList text={{ primary: 'Taxes' }} value={taxes} />
           <Divider />
-          <ListItem>
-            <ListItemText primary={dealerName} />
-            {/* <ListItemText className={styles.value} primary={taxes} /> */}
-          </ListItem>
-          <ListItem>
-            <ListItemText primary={dealerPhone} />
-            {/* <ListItemText className={styles.value} primary={taxes} /> */}
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="Rating" />
-            <ListItemText className={styles.value} primary={dealerRating} />
-          </ListItem>
+          <TextItemList text={{ primary: dealerName }} />
+          <TextItemList text={{ primary: 'Phone' }} value={dealerPhone} />
+          <TextItemList text={{ primary: 'Rating' }} value={dealerRating} />
         </List>
       </Paper>
     </>

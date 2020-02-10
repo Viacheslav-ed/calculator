@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Paper, Tabs, Tab } from '@material-ui/core';
+import { Paper, Tabs, Tab, Divider } from '@material-ui/core';
 import Loan from './loan';
 import Lease from './lease';
 
@@ -25,6 +25,7 @@ const Calculator = ({ isLoan, changeTypeCalc }) => {
         <Tab label="Loan" />
         <Tab label="Lease" />
       </Tabs>
+      <Divider />
       {isLoan ? <Loan /> : <Lease />}
     </Paper>
   );

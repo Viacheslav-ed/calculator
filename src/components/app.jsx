@@ -7,6 +7,7 @@ import getData from '../services/data-service';
 import mainReducer from '../reducers/main-reducer';
 import initialState from '../reducers/initState';
 import Spiner from './spiner';
+import calculate from '../services/calculation-service';
 
 const useStyles = makeStyles({
   wrapper: {
@@ -43,10 +44,11 @@ const App = () => {
   const [state, dispatch] = useReducer(mainReducer, initialState);
 
   const changeTypeCalc = () => dispatch({ type: 'CHANGE_TYPE_CULC' });
-  // const val = 'value';
+  const updateResult = result => dispatch({ type: 'UPDATE_RESULT', result });
 
   useEffect(() => {
     getData().then(data => dispatch({ type: 'LOADED', data }));
+    calculate().then(i => console.log(i));
   }, []);
 
   return (
@@ -56,7 +58,11 @@ const App = () => {
         {state.isLoading ? <Spiner text="LOADING" /> : null}
         <Box className={state.isLoading ? clases.mainBoxInactive : clases.mainBox}>
           <Box className={clases.calculator}>
-            <Calculator isLoan={state.isLoan} changeTypeCalc={changeTypeCalc} />
+            <Calculator
+              isLoan={state.isLoan}
+              changeTypeCalc={changeTypeCalc}
+              updateResult={updateResult}
+            />
           </Box>
           <Box className={clases.infoCard}>
             <InfoCard data={state.data} isLoan={state.isLoan} result={state.resultCalculation} />

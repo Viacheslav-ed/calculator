@@ -1,6 +1,5 @@
 const initialState = {
   isLoading: true,
-  isCalculation: false,
   isLoan: true,
   data: {
     msrp: 'n/a',
