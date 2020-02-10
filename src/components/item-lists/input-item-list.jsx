@@ -1,27 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem, ListItemText, makeStyles } from '@material-ui/core';
+import { ListItem, ListItemText, TextField, InputAdornment, makeStyles } from '@material-ui/core';
 
 const useStyle = makeStyles({
-  value: {
-    textAlign: 'right',
+  input: {
+    width: 160,
   },
 });
 
-const InputItemList = ({ text: { primary, secondary }, value = null }) => {
-  const clases = useStyle();
+const dollarMask = { startAdornment: <InputAdornment position="start">$</InputAdornment> };
+const percentMask = { endAdornment: <InputAdornment position="end">%</InputAdornment> };
 
+const InputItemList = ({ text: { primary, secondary }, mask = null }) => {
+  const classes = useStyle();
+  const inputMask = mask === 'dollar' ? dollarMask : percentMask;
   return (
     <ListItem>
       <ListItemText primary={primary} secondary={secondary} />
-      {value ? <ListItemText className={clases.value} primary={value} /> : null}
+      <TextField
+        size="small"
+        className={classes.input}
+        variant="outlined"
+        InputProps={mask ? inputMask : null}
+      />
     </ListItem>
   );
 };
 
 InputItemList.propTypes = {
   text: PropTypes.objectOf(PropTypes.string).isRequired,
-  value: PropTypes.string.isRequired,
+  mask: PropTypes.string.isRequired,
 };
 
 export default InputItemList;

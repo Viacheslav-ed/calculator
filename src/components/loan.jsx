@@ -1,42 +1,15 @@
 import React from 'react';
-import {
-  List,
-  makeStyles,
-  ListItem,
-  ListItemText,
-  TextField,
-  Button,
-  ButtonGroup,
-} from '@material-ui/core';
-
-const useStyle = makeStyles({
-  value: {
-    // textAlign: 'right',
-  },
-});
+import { List, ListItem, ListItemText, Button, ButtonGroup } from '@material-ui/core';
+import { InputItemList } from './item-lists';
 
 const Loan = () => {
-  const styles = useStyle();
-
   return (
     <>
       <List>
-        <ListItem>
-          <ListItemText className={styles.value} primary="Down Payment" />
-          <TextField size="small" variant="outlined" />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Trade-In" />
-          <TextField size="small" variant="outlined" />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="APR" />
-          <TextField size="small" variant="outlined" />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Post Code" />
-          <TextField size="small" variant="outlined" />
-        </ListItem>
+        <InputItemList text={{ primary: 'Down Payment' }} mask="dollar" />
+        <InputItemList text={{ primary: 'Trade-In' }} mask="dollar" />
+        <InputItemList text={{ primary: 'APR' }} mask="percent" />
+        <InputItemList text={{ primary: 'Post Code' }} />
         <ListItem>
           <ListItemText primary="Terms" />
           <ButtonGroup color="primary">
