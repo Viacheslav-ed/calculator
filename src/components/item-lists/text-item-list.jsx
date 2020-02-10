@@ -9,12 +9,12 @@ const useStyle = makeStyles({
 });
 
 const TextItemList = ({ text: { primary, secondary }, value = null }) => {
-  const clases = useStyle();
+  const classes = useStyle();
 
   return (
     <ListItem>
       <ListItemText primary={primary} secondary={secondary} />
-      {value ? <ListItemText className={clases.value} primary={value} /> : null}
+      {value ? <ListItemText className={classes.value} primary={value} /> : null}
     </ListItem>
   );
 };

@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 });
 
 const App = () => {
-  const clases = useStyles();
+  const classes = useStyles();
   const [state, dispatch] = useReducer(mainReducer, initialState);
 
   const changeTypeCalc = () => dispatch({ type: 'CHANGE_TYPE_CULC' });
@@ -54,17 +54,17 @@ const App = () => {
   return (
     <>
       <CssBaseline />
-      <Box className={clases.wrapper}>
+      <Box className={classes.wrapper}>
         {state.isLoading ? <Spiner text="LOADING" /> : null}
-        <Box className={state.isLoading ? clases.mainBoxInactive : clases.mainBox}>
-          <Box className={clases.calculator}>
+        <Box className={state.isLoading ? classes.mainBoxInactive : classes.mainBox}>
+          <Box className={classes.calculator}>
             <Calculator
               isLoan={state.isLoan}
               changeTypeCalc={changeTypeCalc}
               updateResult={updateResult}
             />
           </Box>
-          <Box className={clases.infoCard}>
+          <Box className={classes.infoCard}>
             <InfoCard data={state.data} isLoan={state.isLoan} result={state.resultCalculation} />
           </Box>
         </Box>
