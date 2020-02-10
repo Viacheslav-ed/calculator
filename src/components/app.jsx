@@ -18,13 +18,13 @@ const useStyles = makeStyles({
     justifyContent: 'center',
   },
   mainBox: {
-    minWidth: '900px',
+    // minWidth: '900px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
   mainBoxInactive: {
-    minWidth: '900px',
+    // minWidth: '900px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
