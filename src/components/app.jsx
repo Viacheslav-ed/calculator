@@ -5,9 +5,8 @@ import Calculator from './calculator';
 import InfoCard from './info-card';
 import getData from '../services/data-service';
 import mainReducer from '../reducers/main-reducer';
-import initialState from '../reducers/initState';
+import { initialMainState } from '../utils/config';
 import Spiner from './spiner';
-import calculate from '../services/calculation-service';
 
 const useStyles = makeStyles({
   wrapper: {
@@ -18,13 +17,11 @@ const useStyles = makeStyles({
     justifyContent: 'center',
   },
   mainBox: {
-    // minWidth: '900px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
   mainBoxInactive: {
-    // minWidth: '900px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -41,14 +38,13 @@ const useStyles = makeStyles({
 
 const App = () => {
   const classes = useStyles();
-  const [state, dispatch] = useReducer(mainReducer, initialState);
+  const [state, dispatch] = useReducer(mainReducer, initialMainState);
 
   const changeTypeCalc = () => dispatch({ type: 'CHANGE_TYPE_CULC' });
   const updateResult = result => dispatch({ type: 'UPDATE_RESULT', result });
 
   useEffect(() => {
     getData().then(data => dispatch({ type: 'LOADED', data }));
-    calculate().then(i => console.log(i));
   }, []);
 
   return (

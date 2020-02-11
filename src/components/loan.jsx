@@ -1,6 +1,7 @@
 import React from 'react';
 import { List } from '@material-ui/core';
 import { InputItemList, ButtonItemList } from './item-lists';
+import { TERMS, CREDIT_SCORE } from '../utils/config';
 
 const Loan = () => {
   return (
@@ -10,14 +11,8 @@ const Loan = () => {
         <InputItemList text={{ primary: 'Trade-In' }} mask="dollar" />
         <InputItemList text={{ primary: 'APR' }} mask="percent" />
         <InputItemList text={{ primary: 'Post Code' }} mask="" />
-        <ButtonItemList
-          text={{ primary: 'Terms' }}
-          buttons={['12', '24', '36', '48', '72', '84']}
-        />
-        <ButtonItemList
-          text={{ primary: 'Credit Score' }}
-          buttons={['600', '650', '700', '750', '800', '850', '900']}
-        />
+        <ButtonItemList text={{ primary: 'Terms' }} buttons={TERMS} />
+        <ButtonItemList text={{ primary: 'Credit Score' }} buttons={CREDIT_SCORE} />
       </List>
     </>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ListItem, ListItemText, TextField, makeStyles } from '@material-ui/core';
 
@@ -8,12 +8,11 @@ const useStyle = makeStyles({
   },
 });
 
-// const dollarMask = { startAdornment: <InputAdornment position="start">$</InputAdornment> };
-// const percentMask = { endAdornment: <InputAdornment position="end">%</InputAdornment> };
-
 const SelectItemList = ({ text: { primary, secondary }, options }) => {
+  const [value, setValue] = useState('36');
+  const handleChange = e => setValue(e.target.value);
+  console.log('s', value);
   const classes = useStyle();
-  // const inputMask = mask === 'dollar' ? dollarMask : percentMask;
   return (
     <ListItem>
       <ListItemText primary={primary} secondary={secondary} />
@@ -22,11 +21,15 @@ const SelectItemList = ({ text: { primary, secondary }, options }) => {
         size="small"
         className={classes.input}
         variant="outlined"
-        id="33dfhbxdfbnfmcghm"
+        SelectProps={{
+          native: true,
+        }}
+        onChange={handleChange}
+        value={value}
       >
         {options.map(option => (
-          <option key={option.value} value={option.value}>
-            {option.label}
+          <option key={option} value={option}>
+            {option}
           </option>
         ))}
       </TextField>
@@ -37,7 +40,6 @@ const SelectItemList = ({ text: { primary, secondary }, options }) => {
 SelectItemList.propTypes = {
   text: PropTypes.objectOf(PropTypes.string).isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  // mask: PropTypes.string.isRequired,
 };
 
 export default SelectItemList;

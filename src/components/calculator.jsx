@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Paper, Tabs, Tab, Divider } from '@material-ui/core';
 import Loan from './loan';
 import Lease from './lease';
+import { initialInputState } from '../utils/config';
 
 const Calculator = ({ isLoan, changeTypeCalc }) => {
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     if (newValue === value) return;
     setValue(newValue);
     changeTypeCalc();
   };
-
+  const [inputState, setInputState] = useState(initialInputState);
+  const updateInputState = inputValue => setInputState({ ...inputState, inputValue });
+  const log = inputValue => console.log(inputValue);
   return (
     <Paper>
       <Tabs
@@ -26,7 +28,11 @@ const Calculator = ({ isLoan, changeTypeCalc }) => {
         <Tab label="Lease" />
       </Tabs>
       <Divider />
-      {isLoan ? <Loan /> : <Lease />}
+      {isLoan ? (
+        <Loan inputState={inputState} updateInputState={updateInputState} log={log} />
+      ) : (
+        <Lease inputState={inputState} updateInputState={updateInputState} log={log} />
+      )}
     </Paper>
   );
 };
