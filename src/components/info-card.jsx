@@ -10,7 +10,7 @@ const InfoCard = ({ data, isLoan, result }) => {
       <Paper>
         <List>
           <TextItemList text={{ primary: 'MSRP' }} value={msrp} />
-          <TextItemList text={{ primary: vehicle.name, secondary: vehicle.info }} />
+          <TextItemList text={{ primary: vehicle.name, secondary: vehicle.info }} value="" />
           <Divider />
           <TextItemList
             text={{ primary: `Est. ${isLoan ? 'Loan' : 'Lease'} Payment` }}
@@ -18,7 +18,7 @@ const InfoCard = ({ data, isLoan, result }) => {
           />
           <TextItemList text={{ primary: 'Taxes' }} value={taxes} />
           <Divider />
-          <TextItemList text={{ primary: dealerName }} />
+          <TextItemList text={{ primary: dealerName }} value="" />
           <TextItemList text={{ primary: 'Phone' }} value={dealerPhone} />
           <TextItemList text={{ primary: 'Rating' }} value={dealerRating} />
         </List>

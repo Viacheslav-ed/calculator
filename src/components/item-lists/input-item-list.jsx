@@ -11,7 +11,7 @@ const useStyle = makeStyles({
 const dollarMask = { startAdornment: <InputAdornment position="start">$</InputAdornment> };
 const percentMask = { endAdornment: <InputAdornment position="end">%</InputAdornment> };
 
-const InputItemList = ({ text: { primary, secondary }, mask = null }) => {
+const InputItemList = ({ text: { primary, secondary }, mask }) => {
   const classes = useStyle();
   const inputMask = mask === 'dollar' ? dollarMask : percentMask;
   return (

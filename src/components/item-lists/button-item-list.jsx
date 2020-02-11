@@ -15,7 +15,7 @@ const ButtonItemList = ({ text: { primary, secondary }, buttons }) => {
       <ListItemText primary={primary} secondary={secondary} />
       <ButtonGroup color="primary">
         {buttons.map(button => (
-          <Button>{button}</Button>
+          <Button key={button}>{button}</Button>
         ))}
       </ButtonGroup>
     </ListItem>

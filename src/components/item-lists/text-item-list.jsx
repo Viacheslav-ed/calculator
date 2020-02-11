@@ -8,7 +8,7 @@ const useStyle = makeStyles({
   },
 });
 
-const TextItemList = ({ text: { primary, secondary }, value = null }) => {
+const TextItemList = ({ text: { primary, secondary }, value }) => {
   const classes = useStyle();
 
   return (
