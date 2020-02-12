@@ -18,7 +18,11 @@ const percentMask = { endAdornment: <InputAdornment position="end">%</InputAdorn
 const InputItemList = ({ name }) => {
   const { state, dispatch } = useStateContext();
   const [value, setValue] = useState(state.inputValues[name]);
-  const handleChange = e => setValue(e.target.value);
+  const handleChange = e => {
+    const newValue = e.target.value;
+    if (!Number.isFinite(Number(newValue)) || Number(newValue) < 0 || newValue === value) return;
+    setValue(newValue);
+  };
   const updateInputLabels = newValue => {
     if (newValue === state.inputValues[name]) return;
     const { inputValues } = state;
@@ -26,7 +30,6 @@ const InputItemList = ({ name }) => {
     dispatch({ type: 'UPDATE_INPUT_VALUES', inputValues });
     if (name === 'postal') dispatch({ type: 'UPDATE_TAXES', taxes: getTaxesFromPostal(newValue) });
     calculate(state).then(result => dispatch({ type: 'UPDATE_RESULT', result }));
-    // console.log('b', state.inputValues);
   };
   const hendleKeyPressed = (e, newValue) => {
     if (e.key === 'Enter') updateInputLabels(newValue);
