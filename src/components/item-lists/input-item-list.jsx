@@ -28,6 +28,9 @@ const InputItemList = ({ name }) => {
     calculate(state).then(result => dispatch({ type: 'UPDATE_RESULT', result }));
     // console.log('b', state.inputValues);
   };
+  const hendleKeyPressed = (e, newValue) => {
+    if (e.key === 'Enter') updateInputLabels(newValue);
+  };
   const classes = useStyle();
   const inputMask = itemListMasks[name] === 'dollar' ? dollarMask : percentMask;
   return (
@@ -41,6 +44,7 @@ const InputItemList = ({ name }) => {
         value={value}
         onChange={handleChange}
         onBlur={() => updateInputLabels(value)}
+        onKeyPress={e => hendleKeyPressed(e, value)}
       />
     </ListItem>
   );
