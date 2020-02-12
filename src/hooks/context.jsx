@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { initialState } from '../utils/config';
 import reducer from './reducer';
 
+const localInputValues = JSON.parse(localStorage.getItem('inputValues'));
+if (localInputValues) initialState.inputValues = localInputValues;
+
 const StateContext = createContext(initialState);
 
 const StateContextProvider = ({ children }) => {

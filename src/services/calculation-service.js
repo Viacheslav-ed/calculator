@@ -1,4 +1,5 @@
 const calculate = state => {
+  localStorage.setItem('inputValues', JSON.stringify(state.inputValues));
   const msrp = Number(state.data.msrp.substr(1));
   const tradeIn = Number(state.inputValues.tradeIn);
   const downPayment = Number(state.inputValues.downPayment);
@@ -19,7 +20,7 @@ const calculate = state => {
   const termsLease = Number(state.inputValues.termsLease);
   const mileage = Number(state.inputValues.mileage);
   const res = {};
-  res.loan = (((msrp - tradeIn - downPayment) * (1 + creditScoreValue * apr)) / termsLoan)
+  res.loan = (((msrp - tradeIn - downPayment) * (1 + creditScoreValue) * (1 + apr)) / termsLoan)
     .toFixed(2)
     .toString();
   res.lease = (

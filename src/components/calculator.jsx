@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Paper, Tabs, Tab, Divider } from '@material-ui/core';
 import Loan from './loan';
 import Lease from './lease';
 import { useStateContext } from '../hooks/context';
+import calculate from '../services/calculation-service';
 
 const Calculator = () => {
   const { state, dispatch } = useStateContext();
@@ -10,6 +11,9 @@ const Calculator = () => {
     if (newType === state.typeCalculator) return;
     dispatch({ type: 'CHANGE_TYPE_CALCULATOR', newType });
   };
+  useEffect(() => {
+    calculate(state).then(result => dispatch({ type: 'UPDATE_RESULT', result }));
+  }, []);
   return (
     <Paper>
       <Tabs

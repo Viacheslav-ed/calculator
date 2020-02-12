@@ -26,10 +26,10 @@ const initialState = {
     lease: 'n/a e',
   },
   inputValues: {
-    tradeIn: '1',
-    downPayment: '2',
+    tradeIn: '0',
+    downPayment: '0',
     postal: 'n/a',
-    apr: '3',
+    apr: '0',
     creditScoreValue: '750',
     termsLoan: '24',
     termsLease: '36',
