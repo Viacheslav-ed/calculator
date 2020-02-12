@@ -1,27 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem, ListItemText, makeStyles } from '@material-ui/core';
+import { useStateContext } from '../../hooks/context';
+import { itemListLabels } from '../../utils/config';
 
 const useStyle = makeStyles({
-  value: {
+  right: {
     textAlign: 'right',
+  },
+  center: {
+    textAlign: 'center',
   },
 });
 
-const TextItemList = ({ text: { primary, secondary }, value }) => {
+const TextItemList = ({ name }) => {
+  const { state } = useStateContext();
+  const infoCardData = { ...state.data, taxes: state.taxes, payment: state.payment };
   const classes = useStyle();
-
   return (
     <ListItem>
-      <ListItemText primary={primary} secondary={secondary} />
-      {value ? <ListItemText className={classes.value} primary={value} /> : null}
+      {itemListLabels[name] ? <ListItemText primary={itemListLabels[name]} /> : null}
+      <ListItemText
+        className={itemListLabels[name] ? classes.right : classes.center}
+        primary={infoCardData[name]}
+      />
     </ListItem>
   );
 };
 
 TextItemList.propTypes = {
-  text: PropTypes.objectOf(PropTypes.string).isRequired,
-  value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default TextItemList;

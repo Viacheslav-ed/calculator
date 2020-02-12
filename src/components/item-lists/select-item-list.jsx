@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ListItem, ListItemText, TextField, makeStyles } from '@material-ui/core';
+import { itemListLabels, buttons } from '../../utils/config';
+import { useStateContext } from '../../hooks/context';
 
 const useStyle = makeStyles({
   input: {
@@ -8,14 +10,15 @@ const useStyle = makeStyles({
   },
 });
 
-const SelectItemList = ({ text: { primary, secondary }, options }) => {
-  const [value, setValue] = useState('36');
+const SelectItemList = ({ name }) => {
+  const { state } = useStateContext();
+  const [value, setValue] = useState(state.inputValues[name]);
   const handleChange = e => setValue(e.target.value);
   console.log('s', value);
   const classes = useStyle();
   return (
     <ListItem>
-      <ListItemText primary={primary} secondary={secondary} />
+      <ListItemText primary={itemListLabels[name]} />
       <TextField
         select
         size="small"
@@ -27,7 +30,7 @@ const SelectItemList = ({ text: { primary, secondary }, options }) => {
         onChange={handleChange}
         value={value}
       >
-        {options.map(option => (
+        {buttons[name].map(option => (
           <option key={option} value={option}>
             {option}
           </option>
@@ -38,8 +41,7 @@ const SelectItemList = ({ text: { primary, secondary }, options }) => {
 };
 
 SelectItemList.propTypes = {
-  text: PropTypes.objectOf(PropTypes.string).isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default SelectItemList;

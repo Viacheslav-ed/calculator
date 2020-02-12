@@ -1,12 +1,11 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { CssBaseline, Box, makeStyles } from '@material-ui/core';
-// import { makeStyles } from '@material-ui/core/styles';
 import Calculator from './calculator';
 import InfoCard from './info-card';
-import getData from '../services/data-service';
-import mainReducer from '../reducers/main-reducer';
-import { initialMainState } from '../utils/config';
+import { getData, getPostal } from '../services/data-service';
 import Spiner from './spiner';
+import { useStateContext } from '../hooks/context';
+import getTaxes from '../utils/getTaxes';
 
 const useStyles = makeStyles({
   wrapper: {
@@ -37,14 +36,13 @@ const useStyles = makeStyles({
 });
 
 const App = () => {
+  const { state, dispatch } = useStateContext();
   const classes = useStyles();
-  const [state, dispatch] = useReducer(mainReducer, initialMainState);
-
-  const changeTypeCalc = () => dispatch({ type: 'CHANGE_TYPE_CULC' });
-  const updateResult = result => dispatch({ type: 'UPDATE_RESULT', result });
-
   useEffect(() => {
-    getData().then(data => dispatch({ type: 'LOADED', data }));
+    getData().then(data => dispatch({ type: 'LOADED_DATA', data }));
+    getPostal().then(postal =>
+      dispatch({ type: 'LOADED_POSTAL', postal, taxes: getTaxes(postal) })
+    );
   }, []);
 
   return (
@@ -54,14 +52,10 @@ const App = () => {
         {state.isLoading ? <Spiner text="LOADING" /> : null}
         <Box className={state.isLoading ? classes.mainBoxInactive : classes.mainBox}>
           <Box className={classes.calculator}>
-            <Calculator
-              isLoan={state.isLoan}
-              changeTypeCalc={changeTypeCalc}
-              updateResult={updateResult}
-            />
+            <Calculator />
           </Box>
           <Box className={classes.infoCard}>
-            <InfoCard data={state.data} isLoan={state.isLoan} result={state.resultCalculation} />
+            <InfoCard />
           </Box>
         </Box>
       </Box>

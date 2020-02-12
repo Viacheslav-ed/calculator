@@ -11,8 +11,7 @@ const getPostal = async () => {
 
 const getData = async () => {
   const data = await dataPromised;
-  data.postal = await getPostal();
   return data;
 };
 
-export default getData;
+export { getData, getPostal };

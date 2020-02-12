@@ -1,24 +1,19 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { Paper, Tabs, Tab, Divider } from '@material-ui/core';
 import Loan from './loan';
 import Lease from './lease';
-import { initialInputState } from '../utils/config';
+import { useStateContext } from '../hooks/context';
 
-const Calculator = ({ isLoan, changeTypeCalc }) => {
-  const [value, setValue] = React.useState(0);
-  const handleChange = (event, newValue) => {
-    if (newValue === value) return;
-    setValue(newValue);
-    changeTypeCalc();
+const Calculator = () => {
+  const { state, dispatch } = useStateContext();
+  const handleChange = (e, newType) => {
+    if (newType === state.typeCalculator) return;
+    dispatch({ type: 'CHANGE_TYPE_CALCULATOR', newType });
   };
-  const [inputState, setInputState] = useState(initialInputState);
-  const updateInputState = inputValue => setInputState({ ...inputState, inputValue });
-  const log = inputValue => console.log(inputValue);
   return (
     <Paper>
       <Tabs
-        value={value}
+        value={state.typeCalculator || 0}
         indicatorColor="primary"
         textColor="primary"
         variant="fullWidth"
@@ -28,18 +23,9 @@ const Calculator = ({ isLoan, changeTypeCalc }) => {
         <Tab label="Lease" />
       </Tabs>
       <Divider />
-      {isLoan ? (
-        <Loan inputState={inputState} updateInputState={updateInputState} log={log} />
-      ) : (
-        <Lease inputState={inputState} updateInputState={updateInputState} log={log} />
-      )}
+      {state.typeCalculator ? <Lease /> : <Loan />}
     </Paper>
   );
-};
-
-Calculator.propTypes = {
-  isLoan: PropTypes.bool.isRequired,
-  changeTypeCalc: PropTypes.func.isRequired,
 };
 
 export default Calculator;
