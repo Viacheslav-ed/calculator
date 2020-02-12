@@ -5,8 +5,7 @@ const withValidate = WrappedComponent => {
     const [value, setValue] = useState('0');
     const handleChange = e => setValue(e.target.value);
     return (
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      <WrappedComponent {...props} value={value} handleChange={handleChange} setValue={setValue} />
+      // <WrappedComponent {...props} value={value} handleChange={handleChange} setValue={setValue} />
     );
   };
 };
