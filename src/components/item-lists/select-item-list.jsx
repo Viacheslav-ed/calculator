@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem, ListItemText, TextField, makeStyles } from '@material-ui/core';
 import { itemListLabels, buttons } from '../../utils/config';
 import { useStateContext } from '../../hooks/context';
+import calculate from '../../services/calculation-service';
 
 const useStyle = makeStyles({
   input: {
@@ -11,10 +12,14 @@ const useStyle = makeStyles({
 });
 
 const SelectItemList = ({ name }) => {
-  const { state } = useStateContext();
-  const [value, setValue] = useState(state.inputValues[name]);
-  const handleChange = e => setValue(e.target.value);
-  console.log('s', value);
+  const { state, dispatch } = useStateContext();
+  const handleChange = e => {
+    if (state.inputValues[name] === e.target.value) return;
+    const { inputValues } = state;
+    inputValues[name] = e.target.value;
+    dispatch({ type: 'UPDATE_INPUT_VALUES', inputValues });
+    calculate(state).then(result => dispatch({ type: 'UPDATE_RESULT', result }));
+  };
   const classes = useStyle();
   return (
     <ListItem>
@@ -28,7 +33,7 @@ const SelectItemList = ({ name }) => {
           native: true,
         }}
         onChange={handleChange}
-        value={value}
+        value={state.inputValues[name]}
       >
         {buttons[name].map(option => (
           <option key={option} value={option}>

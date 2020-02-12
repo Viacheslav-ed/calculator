@@ -1,7 +1,5 @@
 import fakeData from './fake-data';
-import { tokenIpInfo, corsProxy } from '../utils/constants';
-
-const dataPromised = Promise.resolve(fakeData);
+import { tokenIpInfo, corsProxy } from '../utils/config';
 
 const getPostal = async () => {
   const res = await fetch(`${corsProxy}https://ipinfo.io?token=${tokenIpInfo}`);
@@ -10,7 +8,7 @@ const getPostal = async () => {
 };
 
 const getData = async () => {
-  const data = await dataPromised;
+  const data = await Promise.resolve(fakeData);
   return data;
 };
 

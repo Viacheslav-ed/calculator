@@ -5,7 +5,7 @@ import InfoCard from './info-card';
 import { getData, getPostal } from '../services/data-service';
 import Spiner from './spiner';
 import { useStateContext } from '../hooks/context';
-import getTaxes from '../utils/getTaxes';
+import getTaxesFromPostal from '../utils/getTaxes';
 
 const useStyles = makeStyles({
   wrapper: {
@@ -40,24 +40,29 @@ const App = () => {
   const classes = useStyles();
   useEffect(() => {
     getData().then(data => dispatch({ type: 'LOADED_DATA', data }));
-    getPostal().then(postal =>
-      dispatch({ type: 'LOADED_POSTAL', postal, taxes: getTaxes(postal) })
-    );
+    getPostal().then(postal => {
+      dispatch({ type: 'UPDATE_INPUT_VALUES', inputValues: { ...state.inputValues, postal } });
+      dispatch({ type: 'UPDATE_TAXES', taxes: getTaxesFromPostal(postal) });
+      dispatch({ type: 'LOADED' });
+    });
   }, []);
 
   return (
     <>
       <CssBaseline />
       <Box className={classes.wrapper}>
-        {state.isLoading ? <Spiner text="LOADING" /> : null}
-        <Box className={state.isLoading ? classes.mainBoxInactive : classes.mainBox}>
-          <Box className={classes.calculator}>
-            <Calculator />
+        {state.isLoading ? (
+          <Spiner text="LOADING" />
+        ) : (
+          <Box className={state.isLoading ? classes.mainBoxInactive : classes.mainBox}>
+            <Box className={classes.calculator}>
+              <Calculator />
+            </Box>
+            <Box className={classes.infoCard}>
+              <InfoCard />
+            </Box>
           </Box>
-          <Box className={classes.infoCard}>
-            <InfoCard />
-          </Box>
-        </Box>
+        )}
       </Box>
     </>
   );

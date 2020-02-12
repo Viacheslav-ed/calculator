@@ -1,3 +1,7 @@
+const tokenIpInfo = '9f9d9d18fe1313';
+
+const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+
 const buttons = {
   termsLoan: ['12', '24', '36', '48', '72', '84'],
   termsLease: ['24', '36', '48'],
@@ -8,8 +12,7 @@ const buttons = {
 const initialState = {
   isLoading: true,
   typeCalculator: 0,
-  postal: 'n/a',
-  payment: 'n/a',
+  payment: 'n/a o',
   taxes: 'n/a',
   data: {
     msrp: 'n/a',
@@ -19,12 +22,13 @@ const initialState = {
     dealerRating: 'n/a',
   },
   calculationResults: {
-    loan: 'n/a',
-    lease: 'n/a',
+    loan: 'n/a o',
+    lease: 'n/a e',
   },
   inputValues: {
     tradeIn: '1',
     downPayment: '2',
+    postal: 'n/a',
     apr: '3',
     creditScoreValue: '750',
     termsLoan: '24',
@@ -58,4 +62,4 @@ const itemListMasks = {
   postal: '',
 };
 
-export { buttons, initialState, itemListLabels, itemListMasks };
+export { tokenIpInfo, corsProxy, buttons, initialState, itemListLabels, itemListMasks };
