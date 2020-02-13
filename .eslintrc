@@ -4,6 +4,7 @@
     "browser": true
   },
   "extends": ["airbnb", "plugin:prettier/recommended"],
+  "ignorePatterns": ["node_modules/"],
   "rules": {
     "strict": 0
   }
